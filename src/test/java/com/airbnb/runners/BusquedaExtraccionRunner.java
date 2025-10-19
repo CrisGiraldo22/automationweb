@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features/busqueda_extraccion.feature",
         glue ="com.airbnb.stepDefinitions",
-        snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@BusquedaFiltrado"
+        snippets = CucumberOptions.SnippetType.CAMELCASE
 )
 
 public class BusquedaExtraccionRunner {
