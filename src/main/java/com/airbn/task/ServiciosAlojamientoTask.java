@@ -27,9 +27,9 @@ public class ServiciosAlojamientoTask implements Task {
                 Scroll.to(SCROLL_IFRAME_FILTRO),
                 WaitUntil.the(BTN_MUSTRA_MAS, isVisible()).forNoMoreThan(10).seconds(),
                 Click.on(BTN_MUSTRA_MAS),
-                Click.on(BTN_WIFI),
-                Click.on(BTN_COCINA),
-                Click.on(BTN_PARRILLA),
+                Click.on(BTN_SERVICIO.of(servicio1)),
+                Click.on(BTN_SERVICIO.of(servicio2)),
+                Click.on(BTN_SERVICIO.of(servicio3)),
                 Click.on(BTN_MOSTRAR_LUGARES)
 
         );

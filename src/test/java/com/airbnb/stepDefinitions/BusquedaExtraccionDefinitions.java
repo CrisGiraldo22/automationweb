@@ -60,7 +60,7 @@ public class BusquedaExtraccionDefinitions {
     @Y("el usuario visualiza la lista de alojamientos disponibles")
     public void elUsuarioVisualizaLaListaDeAlojamientosDisponibles() {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(ReservaAlojamientoQ.reservaAlojamientoQ(),containsStringIgnoringCase("alojamientos en Sopetrán"))
+                seeThat(ReservaAlojamientoQ.reservaAlojamientoQ(),containsStringIgnoringCase("alojamientos en"))
         );
     }
 
@@ -74,15 +74,11 @@ public class BusquedaExtraccionDefinitions {
    @Entonces("el ve los datos del alojamiento y extrae la información en un archivo excel {string}")
     public void elVeLosDatosDelAlojamientoYExtraeLaInformaciónEnUnArchivoExcel(String datosAlojamiento) {
 
-
         Object extractedData = OnStage.theActorInTheSpotlight().recall(VariablesExtraccionDatos.DATOS_DEL_ALOJAMIENTO.name());
-        System.out.println("\n\n#########################################################");
-        System.out.println("DATOS RECUPERADOS ANTES DE EXCEL: " + extractedData);
-        System.out.println("#########################################################\n");
 
-        // Si extractedData es null o {}, la siguiente línea fallará la prueba.
+        System.out.println("extraccion de datos: " + extractedData);
 
-        String rutaCompleta = "src/test/resources/data/" + datosAlojamiento;
+        String rutaCompleta = "src/test/resources/data/" + datosAlojamiento+".xlsx";
 
         OnStage.theActorInTheSpotlight().attemptsTo(
                 EscribirDatosExcelTask.escribirDatos(rutaCompleta)

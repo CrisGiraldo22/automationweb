@@ -22,24 +22,23 @@ public class ExtraerDatosTask implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                // 1. Forzar clic en el resultado de la búsqueda (abre la nueva pestaña)
                 JavaScriptClick.on(PRIMER_RESULTADO_BUSQUEDA),
-
-                // 2. 💡 CAMBIAR EL FOCO: Mover el control de Selenium a la nueva ventana/pestaña
                 Switch.toNewWindow(),
-
-                // 3. Esperar el elemento en la NUEVA ventana (requiere selector TITULO_ALOJAMIENTO estable)
                 WaitUntil.the(TITULO_ALOJAMIENTO, isVisible()).forNoMoreThan(20).seconds(),
                 Click.on(MENSAJE_TRADUCCION),
                 Click.on(CLICK_PRECIO)
         );
-
-        // 4. Extracción de datos (ahora el Actor está en el DOM correcto)
         String titulo = Text.of(TITULO_ALOJAMIENTO).answeredBy(actor);
         String precio = Text.of(PRECIO_ALOJAMIENTO).answeredBy(actor);
         String anfitrion = Text.of(ANFITRION).answeredBy(actor);
 
-        // ... (el resto del código de almacenamiento)
+        if (anfitrion.contains(":")) {
+            String[] partes = anfitrion.split(":", 2);
+            if (partes.length > 1) {
+                anfitrion = partes[1].trim();
+            }
+        }
+
         Map<String, String> datosAlojamiento = new HashMap<>();
         datosAlojamiento.put("Título del Alojamiento", titulo);
         datosAlojamiento.put("Precio", precio);

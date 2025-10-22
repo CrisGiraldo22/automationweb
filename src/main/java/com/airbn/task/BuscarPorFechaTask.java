@@ -6,12 +6,14 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.SendKeys;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 import org.openqa.selenium.Keys;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static com.airbn.UI.BuscarFechasUI.BTN_FECHAS;
 import static com.airbn.UI.BuscarFechasUI.IMPUT_DONDE;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotVisible;
 
 
 public class BuscarPorFechaTask implements Task {
@@ -35,6 +37,7 @@ public class BuscarPorFechaTask implements Task {
         actor.attemptsTo(
                 Enter.theValue(destino).into(IMPUT_DONDE),
                 SendKeys.of(Keys.ENTER).into(IMPUT_DONDE),
+                WaitUntil.the(BTN_FECHAS, isNotVisible()).forNoMoreThan(10).seconds(),
                 Click.on(BTN_FECHAS.of(fechaEntradaFormat).called("Día de Ingreso: " + fechaEntradaFormat)),
                 Click.on(BTN_FECHAS.of(fechaSalidaFormat).called("Día de Salida: " + fechaSalidaFormat))
         );

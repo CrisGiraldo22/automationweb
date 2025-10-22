@@ -17,7 +17,6 @@ plugins {
 }
 
 defaultTasks 'clean','test','aggregate'
-apply plugin: 'net.serenity-bdd.serenity-gradle-plugin'
 
 group 'com.airbnb'
 version '1.0-SNAPSHOT'
